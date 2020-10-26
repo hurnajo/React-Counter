@@ -1,31 +1,29 @@
 import React, { Component } from 'react';
-import CounterGroupSum from './CounterGroupSum';
 
 class CounterSizeGenerate extends Component {
-    constructor(props){
-        super(props)
-
-        this.onChange = this.onChange.bind(this);
-        this.state = {
-            size: 0,
-        }
+    constructor(props) {
+        super(props);
+        this.state = {size: 0}
     }
-
-    onChange(event){
+    
+    onChange = (event) => {
         const value = event.target.value;
-        this.setState(()=>{
-            return{size:value};
-        },()=>this.props.onGenerate(value));
+        this.setState(() => {
+            return {size: value}
+        }, () => {
+            this.props.onSizeChange(value);
+        });
     }
+    
 
     render() {
         return (
-            <fieldset>
-                <label htmlFor="size">size: </label>
-                <input type="number" name="size" id="size" value={this.state.size} onChange={this.onChange}/>
-                <CounterGroupSum/>
-            </fieldset>
-        )
+            <div>
+                <label htmlFor="size"> Number of Counters: </label>
+                <input  type="number"  name="size" id="size"value= {this.state.size}
+                        onChange={this.onChange} min="0"onInput="validity.valid||(value='')"/>
+            </div>
+        );
     }
 }
 

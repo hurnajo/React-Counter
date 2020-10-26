@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
 import CounterSizeGenerate from './CounterSizeGenerate';
 import CounterGroup from './CounterGroup';
+import CounterGroupSum from './CounterGroupSum';
 
 class MultiCounter extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-
-        this.onGenerate = this.onGenerate.bind(this);
-
-        this.state = {size:0}
+        this.state = {
+            sum : 0, 
+            size: 0
+        }
     }
-
-    onGenerate(size){
+    
+    onSizeChange = (size) => {
         this.setState({size});
     }
 
+    sumOfAll = (valueToAdd) => {
+        this.setState((prevNumState) => ({sum : prevNumState.sum + valueToAdd}));
+    }
+    
     render() {
         return (
             <div>
-                <CounterSizeGenerate onGenerate={this.onGenerate}/>  
-                <CounterGroup size={this.state.size}/>     
+                <fieldset>
+                    <CounterSizeGenerate onSizeChange={this.onSizeChange}/>
+                    <CounterGroupSum sum={this.state.sum}/>
+                </fieldset>
+                <CounterGroup size={this.state.size} sumOfAll={this.sumOfAll}/>
             </div>
         );
     }
